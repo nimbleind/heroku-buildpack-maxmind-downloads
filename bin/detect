@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Maxmind downloads"
+exit 0
