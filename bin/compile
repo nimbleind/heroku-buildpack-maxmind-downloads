@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -14,7 +14,6 @@ if [ -d "$ENV_DIR" ]; then
   done
 fi
 
-
 echo "Downloading databases"
 
 for i in ASN-CSV.zip City.tar.gz; do
@@ -27,8 +26,5 @@ ENTRY=$( cd $BUILD_DIR/tmp && tar -ztpf GeoLite2-City.tar.gz | grep GeoLite2-Cit
 ( cd $BUILD_DIR/tmp && tar --strip-components 1 -xvpf GeoLite2-City.tar.gz $ENTRY )
 
 ENTRY=$( cd $BUILD_DIR/tmp && unzip -l GeoLite2-ASN-CSV.zip  | grep csv | awk '{print $4}' )
-echo $ENTRY
-( cd $BUILD_DIR/tmp && ls -l )
 ( cd $BUILD_DIR/tmp && unzip GeoLite2-ASN-CSV.zip $ENTRY )
-( cd $BUILD_DIR/tmp && ls -l )
 ( cd $BUILD_DIR/tmp && cp $ENTRY . )
