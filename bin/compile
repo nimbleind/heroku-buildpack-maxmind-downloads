@@ -18,15 +18,15 @@ fi
 echo "Downloading databases"
 
 for i in ASN-CSV.zip City.tar.gz; do
-  ( cd tmp && curl -s -O "$MAXMIND_DOWNLOAD_URL/GeoLite2-$i" )
+  ( cd $BUILD_DIR/tmp && curl -s -O "$MAXMIND_DOWNLOAD_URL/GeoLite2-$i" )
 done
 
 echo "Extracting databases"
 
-ENTRY=$( cd tmp && tar -ztpf GeoLite2-City.tar.gz | grep GeoLite2-City.mmdb )
-( cd tmp && tar --strip-components 1 -xvpf GeoLite2-City.tar.gz $ENTRY )
+ENTRY=$( cd $BUILD_DIR/tmp && tar -ztpf GeoLite2-City.tar.gz | grep GeoLite2-City.mmdb )
+( cd $BUILD_DIR/tmp && tar --strip-components 1 -xvpf GeoLite2-City.tar.gz $ENTRY )
 
-ENTRY=$( cd tmp && unzip -l GeoLite2-ASN-CSV.zip  | grep csv | awk '{print $4}' )
+ENTRY=$( cd $BUILD_DIR/tmp && unzip -l GeoLite2-ASN-CSV.zip  | grep csv | awk '{print $4}' )
 echo $ENTRY
-( cd tmp && unzip Geolite2-ASN-CSV.zip $ENTRY )
-( cd tmp && cp $ENTRY . )
+( cd $BUILD_DIR/tmp && unzip Geolite2-ASN-CSV.zip $ENTRY )
+( cd $BUILD_DIR/tmp && cp $ENTRY . )
