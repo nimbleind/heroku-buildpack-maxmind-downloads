@@ -29,6 +29,6 @@ ENTRY=$( cd $BUILD_DIR/tmp && tar -ztpf GeoLite2-City.tar.gz | grep GeoLite2-Cit
 ENTRY=$( cd $BUILD_DIR/tmp && unzip -l GeoLite2-ASN-CSV.zip  | grep csv | awk '{print $4}' )
 echo $ENTRY
 ( cd $BUILD_DIR/tmp && ls -l )
-( cd $BUILD_DIR/tmp && unzip Geolite2-ASN-CSV.zip $ENTRY )
+( cd $BUILD_DIR/tmp && unzip GeoLite2-ASN-CSV.zip $ENTRY )
 ( cd $BUILD_DIR/tmp && ls -l )
 ( cd $BUILD_DIR/tmp && cp $ENTRY . )
