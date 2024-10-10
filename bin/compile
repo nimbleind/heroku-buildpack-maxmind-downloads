@@ -4,12 +4,21 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
+blacklist_regex=${2:-'^(MAXMIND_DOWNLOAD_URL)$'}
+blacklist_regex=${3:-''}
+if [ -d "$ENV_DIR" ]; then
+  for e in $(ls $ENV_DIR); do
+    echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
+    export "$e=$(cat $ENV_DIR/$e)"
+    :
+  done
+fi
+
+
 echo "Downloading databases"
 
-BASE_URL="https://archive.statusgator.com/maxmind"
-
 for i in ASN-CSV.zip City.tar.gz; do
-  ( cd tmp && curl -s -O "$BASE_URL/GeoLite2-$i" )
+  ( cd tmp && curl -s -O "$MAXMIND_DOWNLOAD_URL/GeoLite2-$i" )
 done
 
 echo "Extracting databases"
@@ -21,4 +30,3 @@ ENTRY=$( cd tmp && unzip -l GeoLite2-ASN-CSV.zip  | grep csv | awk '{print $4}' 
 echo $ENTRY
 ( cd tmp && unzip Geolite2-ASN-CSV.zip $ENTRY )
 ( cd tmp && cp $ENTRY . )
-
